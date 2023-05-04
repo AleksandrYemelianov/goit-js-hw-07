@@ -42,8 +42,5 @@ function onClickImage(e) {
 }, { once: true });
 }
 
-
-
-
 console.log(galleryItems);
 
