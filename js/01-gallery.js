@@ -6,7 +6,7 @@ function getGalleryItemMarkup(galleryItems) {
    return galleryItems.reduce((acc, { preview, original, description }) => 
         acc + `
         <li class="gallery__item">
-            <a class="gallery__link" href="large-image.jpg">
+            <a class="gallery__link" href="${original}">
                 <img
                     class="gallery__image"
                     src="${preview}"
@@ -30,7 +30,14 @@ function onClickImage(e) {
     } 
 
     const instance = basicLightbox.create(`
-    <img src="${e.target.dataset.source}" width="800" height="600">`)
+    <img src="${e.target.dataset.source}" width="800" height="600">`, {
+        onShow: () => {
+            console.log('onShow: Modal open');
+        },
+        onClose: () => {
+            gallery.removeEventListener('click', onClickImage);
+        }
+     })
 
     instance.show()
     
@@ -39,8 +46,11 @@ function onClickImage(e) {
             return;
         }
         instance.close();
-}, { once: true });
+    });
 }
 
-console.log(galleryItems);
+
+
+
+
 
