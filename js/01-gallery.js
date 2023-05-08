@@ -32,22 +32,23 @@ function onClickImage(e) {
     const instance = basicLightbox.create(`
     <img src="${e.target.dataset.source}" width="800" height="600">`, {
         onShow: () => {
-            console.log('onShow: Modal open');
+            gallery.addEventListener('keydown', onEscapePress)
         },
         onClose: () => {
-            gallery.removeEventListener('click', onClickImage);
+            gallery.removeEventListener('keydown', onEscapePress)
         }
      })
 
     instance.show()
     
-    gallery.addEventListener('keydown', (e) => {
-    if (e.code !== 'Escape') {
+    function onEscapePress(e) {
+        if (e.code !== 'Escape') {
             return;
         }
         instance.close();
-    });
-}
+    };
+    }
+
 
 
 
